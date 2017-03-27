@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+  <script type="text/javascript">
+    /*
+    1.自定义事件：
+      通过映射，将绑定的函数都放都改事件的数组中，当制定的事件触发的时候，
+      循环该数组中的事件函数并且调用。
+    2.深拷贝核心原理：
+      循环数据，查看每个的数据类型是否为对象，如果是对象就继续循环这个对象，
+      直到数据中不为对象类型就返回。
+      
+    3.面向对象小明18岁，住北京，职业前端，他说：今天天气不错
+    小明 = {
+      age:18,
+      address:'北京',
+      job:前端,
+      say:function(){
+        console.log('天天气不错')
+      }
+    }
+    
+    function Person(name,age,job,address){
+      this.name = name;
+      this.age = age;
+      this.job = job;
+      this.address = address;
+    }
+    Person.prototype.say = function(){
+      console.log('今天天气不错')
+    }
+    
+    class Person{
+      constructor(name,age,job,address){
+        this.name = name;
+        this.age = age;
+        this.job = job;
+        this.address = address;
+      }
+      say(){
+        console.log('今天天气不错')
+      }
+    }
+
+    
+    4.暂存区与工作区
+      git diff
+      暂存区与版本区
+      git diff --cached
+    5.合并分支
+      git merge 分支名
+    6.原型与原型链关系
+      实例化对象的原型链 === 构造函数的原型
+    
+    7.中文的区间范围
+      [\u4e00-\u9fa5]
+      
+    8.如果判断一个数组是array
+      Object.prostotype.toString.call([]);
+      
+    9.ready与onload的区别
+    ready：  DOM加载完成  DOMContentLoaded
+    onload：  页面加载完成
+    
+    10.jq的index什么意思
+      以父级为基准找到元素当前位置（包括别的标签）
+      <div>
+        <span></span>
+        <span></span>
+        <span></span>
+        <p>1</p>  $(this).index()// 3    $(this).index('p') //0
+      </div>
+      
+      
+    11.closest是啥？
+      离自己最近的父级（包括自身）
+      
+    12.ajax的交互模型
+      new XMLHttpRequest
+      open(get/post,url,true)
+      ajax.send()
+      ajax.onload
+      
+    13.为什么要跨域
+      不同源就跨域，不同协议、端口、域名
+      因为要拿到跨域的数据
+      1.服务器代理
+      2.后端设置请求头（限于新版本的XMLHttpRequest）
+      3.ifreame
+      4.flash
+      5.jsonp  fn()  function fn(data)
+      
+      
+      
+    14.a窗口的数据在b窗口显示
+      localstorage
+      storage必须放在服务器下才能使用
+      
+    15.JQ中ajax与jsonp的写法各是什么
+    $.ajax({
+      url:'xxx',
+      data:{},
+      success:function(){},
+      type:'get/post'
+    })
+    
+    $.ajax({
+      dataType:'jsonp',
+      url:'xxx',
+      data:{},
+      success:function(){}
+    })
+    
+    瀑布流
+    微博
+    金刚狼
+    使用模板引擎，豆瓣
+
+    16.用正则实现一个trim
+      /^\s+|\s+$/g
+      
+    17.用es6的方式实现一个数组去重
+      [ ...new Set([1,2,1,2,3,3,3])]
+      
+    18.什么是单向数据流
+      
+      数据单纯从父组件流到子组件的形式。（单向流动）
+      
+    19.ES6中标准写法的正则做了什么改动
+      new Regexp(''|//,'gi')
+      
+    20.for of在什么情况下才能使用
+      有Symbol[iterator]的时候才能使用，对象是没有的
+      
+    21.generator的写法
+      
+      function*(){
+        yield [123];
+        yield [456];
+      }
+      
+    22.Es6中如何引入或导出模块
+      import 引入
+      export  导出
+      
+    23.数组、对象、函数的解构赋值。
+      let [arr] = ['a']
+      let {arr:newArr} = {arr:[]}
+      function (a=10,b=5,...end){}
+      
+    24.jq通过哪2个方法去扩展插件
+      $.fn.extend({})  $.extend({})
+    25.点击一次按钮的时弹了多次，解决方案是什么？
+      off()
+    26.webpack配置的4大核心是啥？
+      entry
+      output
+      module
+      plugins
+
+     */
+    
+    addEvent(document,'点击',function(){
+      alert(1);
+    });
+    addEvent(document,'点击',function(){
+      alert(2);
+    });
+    
+    /*
+      {
+        点击:[fn1,fn2]
+      }
+     */
+    
+    // console.log(document.zdy)
+    function addEvent(obj,events,fn){
+      obj.zdy = obj.zdy || {};
+      obj.zdy[events] = obj.zdy[events] || [];
+      obj.zdy[events].push(fn);
+    }
+    
+    document.onclick = function(){
+      this.zdy['点击'][0]();
+      this.zdy['点击'][1]();
+    }
+    
+    
+    class Person{
+      constructor(name,age,job,address){
+        this.name = name;
+        this.age = age;
+        this.job = job;
+        this.address = address;
+      }
+      say(){
+        console.log('今天天气不错')
+      }
+    }
+    let p = new Person('小明',18,'前端','北京');
+    p.say();
+    
+    
+    
+    
+    
+  </script>
+  </body>
+</html>
